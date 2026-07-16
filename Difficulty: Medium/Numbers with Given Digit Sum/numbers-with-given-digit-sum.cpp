@@ -1,0 +1,21 @@
+class Solution {
+  public:
+    int countWays(int n, int sum) {
+        vector<vector<long long>> dp(n+1,vector<long long>(sum+1,0));
+        for(int d=1;d<=9&&d<=sum;d++){
+            dp[1][d]=1;
+        }
+        for(int i=2;i<=n;i++){
+            for(int s=0;s<=sum;s++){
+                for(int d=0;d<=9&&d<=s;d++){
+                    dp[i][s]+=dp[i-1][s-d];
+                }
+            }
+        }
+        long long ans=dp[n][sum];
+        if(ans==0){
+            return -1;
+        }
+        return (int)ans;
+    }
+};
